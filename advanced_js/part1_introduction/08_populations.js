@@ -32,3 +32,39 @@ for (const len of lens) {
     groupNames.push(populations.filter(guy => guy.lenName === len));
 }
 console.log(groupNames);
+
+
+// Corrections Antoine *********************************************************
+// Ordonner les valeurs de population en fonction de la longueur des noms par ordre croissant 
+populations.sort((a, b) => a.name.length - b.name.length);
+// l'ordre est modifié sur le tableau 
+console.log(populations);
+
+// Ajoutez une clé lenNames elle permettra d'assigner la longueur de chaque nom.
+for(const population of populations){
+    // le && est passif si la première évaluation est false JS n'évalue pas la deuxième
+    // le code ci-dessous conduira donc à assigner la longueur du nom ou null pour la clé lenName
+    population['lenName'] = ( population.name && population.name.length || null  ) ;
+}
+
+// dans la fonction callback on a respectivement l'item population du tableau et un compteur i 
+// populations.map( (population, i) => {
+//     population['lenName'] = population.name.length  ;
+// })
+
+console.log(populations);
+
+// On récupère l'ensemble des longueurs possibles
+const lenNames = new Set(populations.map(pop => pop.lenName));
+console.log(lenNames);
+const groupNames = [];
+for (const lenName of lenNames) {
+    groupNames.push(populations.filter(p => p.lenName === lenName));
+}
+console.log(groupNames);
+
+// Une autre solution en partant de la longueur des noms :
+
+// Attention lenNames est un ensemble pour appliquer map vous devez spreader le set pour
+// obtenir un tableau
+const groupNames_v2 = [ ...lenNames ].map( len => populations.filter(p => p.lenName === len) );
