@@ -30,7 +30,9 @@ const populations = [
     { "id": 12, "name": "Ian" }
 ];
 
-const populations2 = populations;
-populations[0].lastname = 'Poe';
+const populations2 = populations.map(pop => ({ ...pop }));
+
+// const populations2 = JSON.parse(JSON.stringify(populations));
+populations[0].name = 'ALAN';
 
 console.log(populations2);
