@@ -75,6 +75,24 @@ const mean = notes => {
     return Math.floor(average * DECIMALS) / DECIMALS;
 };
 
+const getMention = average => {
+    if (average >= 17) {
+        return 'TB';
+        return ;
+    };
+    if (average >= 14 && average <= 16) {
+        return 'B';
+    };
+    if (average >= 12 && average <= 13) {
+        return 'AB';
+    };
+    if (average >= 10 && average <= 11) {
+        return 'P';
+    };
+
+    return '';
+};
+
 stMap.forEach(st => {
     if (st.notes.length === 0) {
         st.average = null
@@ -83,25 +101,7 @@ stMap.forEach(st => {
     };
 
     st.average = mean(st.notes);
-
-    if (st.average >= 17) {
-        st.mention = 'TB'
-        return ;
-    };
-    if (st.average >= 14 && st.average <= 16) {
-        st.mention = 'B'
-        return ;
-    };
-    if (st.average >= 12 && st.average <= 13) {
-        st.mention = 'AB'
-        return ;
-    };
-    if (st.average >= 10 && st.average <= 11) {
-        st.mention = 'P'
-        return ;
-    };
-
-    st.mention = '';
+    st.mention = getMention(st.average);
 });
 
 console.log(stMap);
@@ -133,8 +133,9 @@ const badStudent =
         }
     ];
 
-const addStudent = ( [key, infos], data) => {
-    if (data.has(key)) throw new Error('Key already present');
+const addStudent = ([key, infos], data) => {
+    // if (data.has(key)) throw new Error('Key already present');
+    if (data.has(key)) console.error('Key already present');
 
     data.set(key, infos);
 };
