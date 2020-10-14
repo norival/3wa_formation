@@ -101,4 +101,7 @@ relations.forEach(relation => {
     pop[0].relations = relPop;
     populations2.push(pop[0]);
 });
-console.log(populations2);
+
+// tri
+populations2.sort((a, b) => a.relations.length - b.relations.length);
+console.log(populations2[populations2.length - 1]);
