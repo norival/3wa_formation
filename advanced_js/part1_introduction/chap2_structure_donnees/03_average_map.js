@@ -70,15 +70,12 @@ const DECIMALS = 100;
 const stMap = new Map(DataStudents);
 
 const mean = notes => {
-    average = notes.reduce((acc, val) => acc + val) / notes.length;
-
-    return Math.floor(average * DECIMALS) / DECIMALS;
+    return Math.floor(notes.reduce((acc, val) => acc + val) / notes.length * DECIMALS) / DECIMALS;
 };
 
 const getMention = average => {
     if (average >= 17) {
         return 'TB';
-        return ;
     };
     if (average >= 14 && average <= 16) {
         return 'B';
@@ -134,15 +131,14 @@ const badStudent =
     ];
 
 const addStudent = ([key, infos], data) => {
-    // if (data.has(key)) throw new Error('Key already present');
-    if (data.has(key)) console.error('Key already present');
+    if (data.has(key)) throw new Error('Key already present');
 
     data.set(key, infos);
 };
 
 addStudent(goodStudent, stMap)
-console.log(stMap);
+// console.log(stMap);
 
 // throw error
-addStudent(badStudent, stMap)
-console.log(stMap);
+// addStudent(badStudent, stMap)
+// console.log(stMap);
