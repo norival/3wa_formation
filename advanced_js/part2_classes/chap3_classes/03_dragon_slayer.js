@@ -14,7 +14,12 @@ class Player {
 
     hit(enemyForce) {
         // TODO random integer based on force
-        this._life -= getRandomInt(1, 10);
+        const damage = getRandomInt(1, 10); 
+        this._life -= damage;
+        this._life = this._life < 0 ? 0 : this._life;
+        this._shot++;
+
+        return damage;
     }
 
     get life() {
@@ -23,6 +28,10 @@ class Player {
 
     get force() {
         return this._force;
+    }
+
+    get name() {
+        return this._name;
     }
 }
 
@@ -48,11 +57,24 @@ class Game {
     run() {
         while (this._p1.life > 0 && this._p2.life > 0) {
             // Game loop
-            this._p1.hit(this._p2.force);
-            this._p2.hit(this._p1.force);
+            console.log(`Turn ${this._turn}: Battle! ***************************`);
+            console.log(`
+                ${this._p1.name} hit ${this._p2.name}!
+                They inflict ${this._p1.hit(this._p2.force)} damage!
+                ${this._p2.name} has ${this._p2.life} HP.
+                `);
+
+            console.log(`
+                ${this._p2.name} hit ${this._p1.name}!
+                They inflict ${this._p2.hit(this._p1.force)} damage!
+                ${this._p1.name} has ${this._p1.life} HP.
+                `);
 
             this._turn++;
         }
+
+        console.log(`The battle is over *************************`);
+        console.log(`${this._p1.life > 0 ? this._p1.name : this._p2.name} won!`);
     }
 }
 
